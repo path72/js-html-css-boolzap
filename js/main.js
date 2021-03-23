@@ -97,7 +97,10 @@ var app = new Vue(
 		methods: {
 			contactImageSrc(index) {
 				return this.pathToImg+'avatar'+this.contacts[index].avatar+'.jpg';
-			}
+			},
+			chatBtn(index) {
+				console.log(this.contacts[index].name+' clicked');
+			},
 		},
 		created: function() {
 		},

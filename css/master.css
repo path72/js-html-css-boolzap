@@ -142,10 +142,17 @@ a:hover {
 }
 .left_side .chat_list_contanier .contact {
 	height: 60px;
+	width: 100%;
 	padding: 8px;
 	background-color: var(--white);
+	outline: none;
+	border: none;
 	border-top: 1px solid var(--line_grey);
 	/* border: 1px dashed green; */
+}
+.left_side .chat_list_contanier .contact:hover {
+	background-color: var(--head_grey);
+
 }
 .left_side .chat_list_contanier .contact_avatar {
 	height: 100%;
@@ -194,6 +201,7 @@ a:hover {
 
 /** chat container **/
 .right_side .chat_container {
+	padding: 20px 30px;
 	overflow: auto;
 	background-image: url('../img/mine.jpg');
 	/* border: 1px dashed green; */
@@ -222,8 +230,36 @@ a:hover {
 }
 
 /****************************************************************
+**  MESSAGES
+*/
+.msg_row {
+	width: 100%;
+	padding: 5px;
+	/* border: 1px dashed green; */
+}
+.msg_row .msg {
+	min-width: 250px;
+	padding: 10px 10px 0;
+	border-radius: 10px;
+}
+.msg_row .msg.received {
+	align-self: flex-start;
+	background-color: var(--white);
+}
+.msg_row .msg.sent {
+	align-self: flex-end;
+	background-color: var(--bubbleOut);
+}
+.msg_row .msg .msg_date {
+	text-align: right;
+}
+
+/****************************************************************
 **  FLEX STRUCTURE
 */
+.flex-row {
+	display: flex;
+}
 .flex-row-co {
 	display: flex;
 	justify-content: center;
@@ -232,29 +268,23 @@ a:hover {
 	display: flex;
 	align-items: center;
 }
-.flex-row {
-	display: flex;
-}
 .flex-col {
 	display: flex;
 	flex-direction: column;
 }
+.flex-col-co {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.flex-col-cv {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
 .flex-grow {
 	flex-grow: 1;
 }
-
-/****************************************************************
-**  MESSAGES
-*/
-.received {
-	
-}
-
-
-.sent {
-
-}
-
 
 
 /****************************************************************
@@ -288,6 +318,12 @@ font-weight: 500;
 	line-height: 1.8em;
 	color: var(--dark_grey);
 	text-decoration: underline;
+}
+.txt_4 {
+	font-size: 0.5em;
+	font-weight: 400;
+	line-height: 2.4em;
+	color: var(--middle_grey);
 }
 /* .ms_txt_small_1 {
 	font-size: 0.9em;
