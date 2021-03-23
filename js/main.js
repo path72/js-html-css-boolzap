@@ -92,13 +92,14 @@ var app = new Vue(
 					],
 				},
 			],
-			variabile: 'ciccio'
+			contactSelectedIndex: 0
 		},
 		methods: {
 			contactImageSrc(index) {
 				return this.pathToImg+'avatar'+this.contacts[index].avatar+'.jpg';
 			},
 			chatBtn(index) {
+				this.contactSelectedIndex = index;
 				console.log(this.contacts[index].name+' clicked');
 			},
 		},

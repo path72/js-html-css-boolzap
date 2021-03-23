@@ -64,6 +64,7 @@ a:hover {
 .left_side {
 	width: 35%;
 	height: 100%;
+	min-width: 250px;
 }
 
 /** left header **/
@@ -128,11 +129,13 @@ a:hover {
 	padding: 6px;
 	border: none;
 	outline: none;
+	font-size: 0.8em;
+
 	/* border-radius: 3px; */
 	/* border: 1px dashed green; */
 }
 .left_side .left_search .input_text_field input::placeholder {
-	font-size: 0.8em;  
+	font-size: 0.8em;
 }
 
 /** chat list contanier **/
@@ -142,17 +145,14 @@ a:hover {
 }
 .left_side .chat_list_contanier .contact {
 	height: 60px;
-	width: 100%;
 	padding: 8px;
 	background-color: var(--white);
-	outline: none;
-	border: none;
 	border-top: 1px solid var(--line_grey);
+	cursor: pointer;
 	/* border: 1px dashed green; */
 }
 .left_side .chat_list_contanier .contact:hover {
 	background-color: var(--head_grey);
-
 }
 .left_side .chat_list_contanier .contact_avatar {
 	height: 100%;
@@ -163,6 +163,7 @@ a:hover {
 }
 .left_side .chat_list_contanier .contact_name {
 	padding: 15px 10px;
+	text-align: left;
 }
 
 
@@ -172,6 +173,7 @@ a:hover {
 .right_side {
 	width: 65%;
 	height: 100%;
+	min-width: 350px;
 }
 
 /** right header **/

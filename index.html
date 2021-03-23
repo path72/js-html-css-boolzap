@@ -20,7 +20,7 @@
 		<!-- <script type="text/javascript" src="js/main.js"></script> -->
 		<!-- *** *** -->
 		<link rel="shortcut icon" href="#">
-		<title>template</title>
+		<title>js-html-css-boolzap</title>
 	</head>
 	<body>
 
@@ -47,6 +47,7 @@
 
 			<div class="main_wrapper flex-row">
 
+				<!--*---------------- LEFT SIDE ----------------*-->
 				<div class="left_side flex-col">
 
 					<!-- ** left header ** -->
@@ -87,27 +88,28 @@
 
 					<!-- ** chat list contanier ** -->
 					<div class="chat_list_contanier flex-grow">
-						<button class="contact flex-row" v-for="(contact,index) in contacts" @click="chatBtn(index)">
+						<div class="contact flex-row" v-for="(contact,index) in contacts" @click="chatBtn(index)">
 							<div class="contact_avatar">
 								<img :src="contactImageSrc(index)" alt="">
 							</div>
 							<div class="contact_name flex-grow">
 								<div class="txt_1">{{contact.name}}</div>
 							</div>
-						</button>
+						</div>
 					</div>
 
 				</div> <!-- left_side -->
 
+				<!--*---------------- RIGHT SIDE ----------------*-->
 				<div class="right_side flex-col">
 
 					<!-- ** right header ** -->
 					<div class="right_header flex-row">
 						<div class="contact_avatar">
-							<img :src="contactImageSrc(0)" alt="">
+							<img :src="contactImageSrc(contactSelectedIndex)" alt="">
 						</div>
 						<div class="contact_info flex-grow">
-							<div class="txt_1">{{contacts[0].name}}</div>
+							<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
 							<div class="txt_2">Ultimo accesso oggi alle</div>
 						</div>
 						<div class="contact_icons flex-row-cv">
@@ -134,7 +136,7 @@
 							</div>
 							<div class="msg_row flex-col">
 								<div class="msg sent">
-									<div class="msg_text txt_1">Hai portato a spasso il cane?</div>
+									<div class="msg_text txt_1">(Un dialogo da premi nobel...)</div>
 									<div class="msg_date txt_4">GG/MM/AAAA HH:MM:SS</div>
 								</div>
 							</div>
@@ -156,9 +158,9 @@
 
 				</div> <!-- right_side -->
 
-			</div>
+			</div> <!-- main_wrapper -->
 
-		</div> <!-- Vue root -->	
+		</div> <!-- Vue root -->
 
 
 
