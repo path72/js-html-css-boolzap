@@ -6,6 +6,11 @@ var app = new Vue(
 	{
 		el: '#root',
 		data: {
+			pathToImg: 'img/',
+			user: {
+				name: 'Dovahkiin',
+				avatar: '_io',
+			},
 			contacts: [
 				{	name: 'Michele',
 					avatar: '_1',
@@ -90,16 +95,27 @@ var app = new Vue(
 			variabile: 'ciccio'
 		},
 		methods: {
+			contactImageSrc(index) {
+				return this.pathToImg+'avatar'+this.contacts[index].avatar+'.jpg';
+			}
 		},
 		created: function() {
 		},
 		mounted: function() {
 		},
 		computed: {
+			userImageSrc() {
+				return this.pathToImg+'avatar'+this.user.avatar+'.jpg';
+			}
 		}
 	}
 );
 // Vue.config.devtools = true;
+
+
+var now = dayjs();
+console.log(now);
+
 
 //###################################################### 
 //# DYNAMICS - jQuery                                  # 
