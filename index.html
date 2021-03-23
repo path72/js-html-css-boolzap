@@ -52,12 +52,14 @@
 
 					<!-- ** left header ** -->
 					<div class="left_header flex-row">
+						<!-- ------------------------------------------------- -->
 						<div class="usr_avatar">
 							<img :src="userImageSrc" alt="">
 						</div>
 						<div class="usr_name flex-grow">
 							<div class="txt_1">{{user.name}}</div>
 						</div>
+						<!-- ------------------------------------------------- -->
 						<div class="usr_icons flex-row-cv">
 							<i class="fas fa-circle-notch"></i>
 							<i class="fas fa-comment-alt"></i>
@@ -89,12 +91,15 @@
 					<!-- ** chat list contanier ** -->
 					<div class="chat_list_contanier flex-grow">
 						<div class="contact flex-row" v-for="(contact,index) in contacts" @click="chatBtn(index)">
+							<!-- ------------------------------------------------- -->
 							<div class="contact_avatar">
 								<img :src="contactImageSrc(index)" alt="">
 							</div>
 							<div class="contact_name flex-grow">
 								<div class="txt_1">{{contact.name}}</div>
 							</div>
+							<!-- ------------------------------------------------- -->
+
 						</div>
 					</div>
 
@@ -105,13 +110,15 @@
 
 					<!-- ** right header ** -->
 					<div class="right_header flex-row">
+						<!-- ------------------------------------------------- -->
 						<div class="contact_avatar">
 							<img :src="contactImageSrc(contactSelectedIndex)" alt="">
 						</div>
 						<div class="contact_info flex-grow">
 							<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
-							<div class="txt_2">Ultimo accesso oggi alle</div>
+							<div class="txt_2">Ultimo accesso il {{contactLastMsg.day}} alle {{contactLastMsg.hour}}</div>
 						</div>
+						<!-- ------------------------------------------------- -->
 						<div class="contact_icons flex-row-cv">
 							<i class="fas fa-search"></i>
 							<i class="fas fa-paperclip"></i>
@@ -122,24 +129,12 @@
 					<!-- ** chat container ** -->
 					<div class="chat_container flex-grow">
 						<div class="chat_msg_list flex-col-co">
-							<div class="msg_row flex-col">
-								<div class="msg sent">
-									<div class="msg_text txt_1">Hai portato a spasso il cane?</div>
-									<div class="msg_date txt_4">GG/MM/AAAA HH:MM:SS</div>
+							<div class="msg_row flex-col" v-for="message in contacts[contactSelectedIndex].messages">
+								<div class="msg" :class="message.status">
+									<div class="msg_text txt_1">{{message.text}}</div>
+									<div class="msg_date txt_4">{{message.date}}</div>
 								</div>
-							</div>
-							<div class="msg_row flex-col">
-								<div class="msg received">
-									<div class="msg_text txt_1">Hai portato a spasso il cane?</div>
-									<div class="msg_date txt_4">GG/MM/AAAA HH:MM:SS</div>
-								</div>
-							</div>
-							<div class="msg_row flex-col">
-								<div class="msg sent">
-									<div class="msg_text txt_1">(Un dialogo da premi nobel...)</div>
-									<div class="msg_date txt_4">GG/MM/AAAA HH:MM:SS</div>
-								</div>
-							</div>
+							</div>							
 						</div>
 					</div>
 

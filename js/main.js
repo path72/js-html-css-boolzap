@@ -100,7 +100,6 @@ var app = new Vue(
 			},
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
-				console.log(this.contacts[index].name+' clicked');
 			},
 		},
 		created: function() {
@@ -110,6 +109,11 @@ var app = new Vue(
 		computed: {
 			userImageSrc() {
 				return this.pathToImg+'avatar'+this.user.avatar+'.jpg';
+			},
+			contactLastMsg() {
+				let receivedMsgList = this.contacts[this.contactSelectedIndex].messages.filter((el) => el.status == 'received');
+				let date = receivedMsgList[receivedMsgList.length-1].date;
+				return { day:date.split(' ')[0], hour:date.split(' ')[1] };
 			}
 		}
 	}
