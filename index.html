@@ -140,15 +140,12 @@
 
 					<!-- ** input container ** -->
 					<div class="input_container flex-row-cv">
-						<div class="emoji_btn">
-							<i class="far fa-smile"></i>
-						</div>
+						<i class="far fa-smile"></i>
 						<div class="input_text_field flex-grow">
-							<input type="text" placeholder="Scrivi un messaggio">
+							<input type="text" placeholder="Scrivi un messaggio" v-model="msgInput" @keyup.enter="addSentMsg">
 						</div>
-						<div class="mic_btn">
-							<i class="fas fa-microphone"></i>
-						</div>
+						<i class="fas fa-microphone" v-if="msgInput==''"></i>
+						<i class="fab fa-telegram-plane" v-else @click="addSentMsg"></i>
 					</div>
 
 				</div> <!-- right_side -->

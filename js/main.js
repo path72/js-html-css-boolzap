@@ -92,7 +92,8 @@ var app = new Vue(
 					],
 				},
 			],
-			contactSelectedIndex: 0
+			contactSelectedIndex: 0,
+			msgInput: ''
 		},
 		methods: {
 			contactImageSrc(index) {
@@ -101,6 +102,18 @@ var app = new Vue(
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
 			},
+			addSentMsg() {
+				if (this.msgInput && this.msgInput.trim()) {
+					let n = dayjs();
+					let msg = {
+						date: n.format('DD/MM/YYYY HH:mm:ss'),
+						text: this.msgInput,
+						status: 'sent'
+					};
+					this.contacts[this.contactSelectedIndex].messages.push(msg);
+					this.msgInput = '';
+				}
+			}
 		},
 		created: function() {
 		},

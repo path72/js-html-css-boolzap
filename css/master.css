@@ -218,6 +218,7 @@ a:hover {
 	padding: 20px 30px;
 	font-size: 1.3em;
 	color: var(--icon_grey);
+	cursor: pointer;
 	/* border: 1px dashed green; */
 }
 .right_side .input_container .input_text_field input {
@@ -229,6 +230,12 @@ a:hover {
 }
 .right_side .input_container .input_text_field input::placeholder {
 	font-size: 0.9em;  
+}
+.fa-telegram-plane {
+	font-size: 1em;
+	padding: 20px 0px;
+	color: var(--mypurple);
+	/* border: 1px dashed green; */
 }
 
 /****************************************************************
