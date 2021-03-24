@@ -2,6 +2,43 @@
 //# DYNAMICS - Vue.js                                  # 
 //###################################################### 
 
+Vue.component('usrDisplay1', {
+	/**
+	 * passare
+	 * src immagine, qui: userImageSrc
+	 * nome avatar,  qui: user.name
+	 * 
+	 */
+	template: `
+	<div class="component flex-row">
+		<div class="avatar_img">
+			<img :src="userImageSrc" alt="">
+		</div>
+		<div class="avatar_name flex-row-cv">
+			<div class="txt_1">{{user.name}}</div>
+		</div>
+	</div>
+	`
+});
+Vue.component('usrDisplay2', {
+	/**
+	 * passare
+	 * src immagine, qui: contactImageSrc(index)
+	 * nome avatar,  qui: contact.name
+	 * 
+	 */
+	 template: `
+	<div class="component flex-row">
+		<div class="avatar_img">
+			<img :src="contactImageSrc(index)" alt="">
+		</div>
+		<div class="avatar_name flex-row-cv">
+			<div class="txt_1">{{contact.name}}</div>
+		</div>
+	</div>
+	`
+});
+
 var app = new Vue(
 	{
 		el: '#root',
@@ -93,7 +130,25 @@ var app = new Vue(
 				},
 			],
 			contactSelectedIndex: 0,
-			msgInput: ''
+			msgInput: '',
+			replyList: [
+				'Boia, deh!',
+				'Il mio tesssoro!',
+				'Però solo se fosse antani',
+				'Fare o non fare. Non c’è provare.',
+				'Stupido è chi lo stupido fa.',
+				'Montalbano, sono!',
+				'Stai parlando con me?',
+				'Strade? Dove stiamo andando non c’è bisogno di strade!',
+				'Io non sono cattiva. È che mi codificano così.',
+				'Gli farò un’offerta che non potrà rifiutare.',
+				'Metti la cera, togli la cera.',
+				'Sono Wolf, risolvo problemi.',
+				'Sei solo chiacchiere e distintivo!',
+				'Mi piace l’odore del napalm al mattino.',
+				'Al mio segnale, scatenate l’inferno.',
+				'Hasta la vista, baby.'
+			]
 		},
 		methods: {
 			contactImageSrc(index) {
@@ -117,9 +172,11 @@ var app = new Vue(
 				}
 			},
 			addReceivedMsg() {
+				let n = this.getRndInteger(0,this.replyList.length-1);
+				console.log(n);
 				let msg = {
 					date: this.getNowDate(),
-					text: 'Ok!',
+					text: this.replyList[this.getRndInteger(0,this.replyList.length-1)],
 					status: 'received'
 				};
 				this.contacts[this.contactSelectedIndex].messages.push(msg);
@@ -128,7 +185,7 @@ var app = new Vue(
 			contactAutoReplay() {
 				setTimeout(()=>{
 					this.addReceivedMsg();
-				},3000);
+				},1000);
 			},
 			getNowDate() {
 				let n = dayjs();
@@ -136,6 +193,9 @@ var app = new Vue(
 			},
 			inputMsgFocus() {
 				this.$refs.msgInputField.focus();
+			},
+			getRndInteger(a,b) {
+				return Math.floor(Math.random()*(b-a+1)+a);
 			}
 		},
 		created: function() {
