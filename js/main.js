@@ -27,7 +27,7 @@ Vue.component('usrDisplay2', {
 	 * nome avatar,  qui: contact.name
 	 * 
 	 */
-	 template: `
+	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
 			<img :src="contactImageSrc(index)" alt="">
@@ -43,6 +43,7 @@ var app = new Vue(
 	{
 		el: '#root',
 		data: {
+			//* USER/CONTACT INFOS *//
 			pathToImg: 'img/',
 			user: {
 				name: 'Dovahkiin',
@@ -129,35 +130,55 @@ var app = new Vue(
 					],
 				},
 			],
+			//* CHAT DISPLAY *//
 			contactSelectedIndex: 0,
 			msgInput: '',
+			srcInput: '',
+			//* MESSAGES *//
 			replyList: [
 				'Boia, deh!',
 				'Il mio tesssoro!',
+				'No grazie, non mangio mai a stomaco vuoto',
 				'Però solo se fosse antani',
 				'Fare o non fare. Non c’è provare.',
 				'Stupido è chi lo stupido fa.',
 				'Montalbano, sono!',
 				'Stai parlando con me?',
+				'Francamente me ne infischio',
 				'Strade? Dove stiamo andando non c’è bisogno di strade!',
 				'Io non sono cattiva. È che mi codificano così.',
 				'Gli farò un’offerta che non potrà rifiutare.',
-				'Metti la cera, togli la cera.',
-				'Sono Wolf, risolvo problemi.',
+				'Metti la cera, togli la cera',
+				'Sono Wolf, risolvo problemi',
+				'SI - PUÒ - FAREEEEEEEE!!!',
+				'Houston, abbiamo un problema',
 				'Sei solo chiacchiere e distintivo!',
-				'Mi piace l’odore del napalm al mattino.',
-				'Al mio segnale, scatenate l’inferno.',
+				'Mi piace l’odore del napalm al mattino',
+				'Al mio segnale, scatenate l’inferno',
 				'Hasta la vista, baby.'
-			]
+			],
+			replyDelay: 1000
 		},
 		methods: {
+			//* USER/CONTACT INFOS *//
 			contactImageSrc(index) {
 				return this.pathToImg+'avatar'+this.contacts[index].avatar+'.jpg';
 			},
+			//* CHAT DISPLAY *//
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
 				this.inputMsgFocus();
 			},
+			srcChat(srcInput) {
+				this.contacts.forEach((co)=>{
+					if (!co.name.toLowerCase().includes(srcInput.toLowerCase())) {
+						co.visible = false;
+					} else {
+						co.visible = true;
+					}
+				});
+			},
+			//* MESSAGES *//
 			addSentMsg() {
 				if (this.msgInput && this.msgInput.trim()) {
 					let msg = {
@@ -185,8 +206,9 @@ var app = new Vue(
 			contactAutoReplay() {
 				setTimeout(()=>{
 					this.addReceivedMsg();
-				},1000);
+				},this.replyDelay);
 			},
+			//* OTHER STUFF *//
 			getNowDate() {
 				let n = dayjs();
 				return n.format('DD/MM/YYYY HH:mm:ss');

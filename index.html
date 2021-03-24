@@ -35,6 +35,13 @@
 		● Visualizzazione dinamica della lista contatti: 
 			tramite la direttiva v-for, visualizzare nome e immagine di ogni contatto
 
+		Milestone 2
+		● Visualizzazione dinamica dei messaggi: 
+			tramite la direttiva v-for, 
+			visualizzare tutti i messaggi relativi al contatto attivo 
+			all’interno del pannello della conversazione
+		● Click sul contatto mostra la conversazione del contatto cliccato
+
 
 		------------------------------------------->
 
@@ -82,7 +89,10 @@
 							<i class="fas fa-search"></i>
 						</div>
 						<div class="input_text_field flex-grow-1">
-							<input type="text" placeholder="Cerca o ninizia una nuova chat">
+							<input type="text" placeholder="Cerca o ninizia una nuova chat"
+								v-model="srcInput"
+								@keyup="srcChat(srcInput)" 
+								ref="srcInputField">
 						</div>
 					</div>
 
@@ -91,7 +101,8 @@
 						<div class="contact flex-row" 
 							v-for="(contact,index) in contacts" 
 							:class="(index == contactSelectedIndex)?'selected':null" 
-							@click="chatBtn(index)">
+							@click="chatBtn(index)"
+							v-if="contact.visible">
 							<!-- ------------------------------------------------- -->
 							<div class="component flex-row">
 								<div class="avatar_img">
@@ -102,7 +113,7 @@
 								</div>
 							</div>
 							<!-- ------------------------------------------------- -->
-						</div>
+						</div> <!-- v-for: contact,index -->
 					</div>
 
 				</div> <!-- left_side -->
@@ -135,8 +146,9 @@
 								<div class="msg" :class="message.status">
 									<div class="msg_text txt_1">{{message.text}}</div>
 									<div class="msg_date txt_4">{{message.date}}</div>
+									<div class="msg_edit txt_4">{{message.date}}</div>
 								</div>
-							</div>							
+							</div> <!-- v-for: message -->						
 						</div>
 					</div>
 

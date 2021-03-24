@@ -273,6 +273,9 @@ a:hover {
 .msg_row .msg .msg_date {
 	text-align: right;
 }
+.msg_row .msg .msg_edit {
+}
+
 
 /****************************************************************
 **  FLEX STRUCTURE
