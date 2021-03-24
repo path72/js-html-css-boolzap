@@ -157,7 +157,8 @@ var app = new Vue(
 				'Al mio segnale, scatenate l’inferno',
 				'Hasta la vista, baby.'
 			],
-			replyDelay: 1000
+			replyDelay: 1000,
+			msgEditIsOpen: false
 		},
 		methods: {
 			//* USER/CONTACT INFOS *//
@@ -208,6 +209,28 @@ var app = new Vue(
 					this.addReceivedMsg();
 				},this.replyDelay);
 			},
+			msgEditPanelClick() {
+				if (!this.msgEditIsOpen) 
+					this.msgEditPanelToggle(0);
+				else 
+					this.msgEditPanelToggle(0);
+			},
+			msgEditPanelLeave() {
+				if (this.msgEditIsOpen) this.msgEditPanelToggle(500);
+			},
+			msgEditPanelToggle(delay) {
+				setTimeout(()=>{
+					this.msgEditIsOpen = (this.msgEditIsOpen) ? false : true;
+				},delay);
+			},
+			msgDelete(message) {
+				console.log('delete');
+				console.log(message);
+			},
+			msgInfos(message) {
+				console.log('infos');
+				console.log(message);
+			},
 			//* OTHER STUFF *//
 			getNowDate() {
 				let n = dayjs();
@@ -235,7 +258,10 @@ var app = new Vue(
 				let receivedMsgList = this.contacts[this.contactSelectedIndex].messages.filter((el) => el.status == 'received');
 				let date = receivedMsgList[receivedMsgList.length-1].date;
 				return { day:date.split(' ')[0], hour:date.split(' ')[1] };
-			}
+			},
+			// msgEditPanel() {
+			// 	return (this.msgEditIsOpen) ? false : true;
+			// }
 		}
 	}
 );

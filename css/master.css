@@ -252,15 +252,20 @@ a:hover {
 /****************************************************************
 **  MESSAGES
 */
+
 .msg_row {
 	width: 100%;
 	padding: 5px;
 	/* border: 1px dashed green; */
 }
 .msg_row .msg {
+	position: relative;
 	min-width: 250px;
 	padding: 10px 10px 0;
 	border-radius: 10px;
+}
+.msg_row .msg .msg_date {
+	text-align: right;
 }
 .msg_row .msg.received {
 	align-self: flex-start;
@@ -270,11 +275,41 @@ a:hover {
 	align-self: flex-end;
 	background-color: var(--bubbleOut);
 }
-.msg_row .msg .msg_date {
-	text-align: right;
-}
+
+/** message edit **/
 .msg_row .msg .msg_edit {
+	display: none;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	/* border: 1px dashed green; */
 }
+.msg_row .msg:hover .msg_edit {
+	display: block;
+	cursor: pointer;
+}
+.msg_row .msg .msg_edit .fas {
+	padding: 0 5px;
+	font-size: 1.3em;
+	color: var(--middle_grey);
+}
+.msg_row .msg .msg_edit .msg_edit_box { 
+	position: absolute;
+	top: 20px;
+	right: 0px;
+	z-index: 2;
+	width: 160px;
+	/* height: 100px; */
+	padding: 20px;
+	background-color: var(--white);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.msg_row .msg .msg_edit .msg_edit_box .msg_info, 
+.msg_row .msg .msg_edit .msg_edit_box .msg_del {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
 
 
 /****************************************************************

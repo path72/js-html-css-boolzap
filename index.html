@@ -146,7 +146,15 @@
 								<div class="msg" :class="message.status">
 									<div class="msg_text txt_1">{{message.text}}</div>
 									<div class="msg_date txt_4">{{message.date}}</div>
-									<div class="msg_edit txt_4">{{message.date}}</div>
+									<div class="msg_edit"
+										@mouseleave="msgEditPanelLeave"
+										@click="msgEditPanelClick">
+										<i class="fas fa-angle-down"></i>
+										<div v-show="msgEditIsOpen" class="msg_edit_box">
+											<div class="msg_info txt_1" @click="msgInfos(message)">Message Info</div>
+											<div class="msg_del txt_1"  @click="msgDelete(message)">Delete Message</div>
+										</div>
+									</div>
 								</div>
 							</div> <!-- v-for: message -->						
 						</div>
@@ -170,8 +178,6 @@
 			</div> <!-- main_wrapper -->
 
 		</div> <!-- Vue root -->
-
-
 
 
 
