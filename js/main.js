@@ -5,14 +5,14 @@
 Vue.component('usrDisplay1', {
 	/**
 	 * passare
-	 * src immagine, qui: userImageSrc
+	 * src immagine, qui: imageSrc(user)
 	 * nome avatar,  qui: user.name
 	 * 
 	 */
 	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
-			<img :src="userImageSrc" alt="">
+			<img :src="imageSrc(user)" alt="">
 		</div>
 		<div class="avatar_name flex-row-cv">
 			<div class="txt_1">{{user.name}}</div>
@@ -23,14 +23,14 @@ Vue.component('usrDisplay1', {
 Vue.component('usrDisplay2', {
 	/**
 	 * passare
-	 * src immagine, qui: contactImageSrc(index)
+	 * src immagine, qui: imageSrc(contact)
 	 * nome avatar,  qui: contact.name
 	 * 
 	 */
 	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
-			<img :src="contactImageSrc(index)" alt="">
+			<img :src="imageSrc(contact)" alt="">
 		</div>
 		<div class="avatar_name flex-row-cv">
 			<div class="txt_1">{{contact.name}}</div>
@@ -134,7 +134,8 @@ var app = new Vue(
 			contactSelectedIndex: 0,
 			msgInput: '',
 			srcInput: '',
-			//* MESSAGES *//
+			//* NEW MESSAGES *//
+			replyDelay: 2000,
 			replyList: [
 				'Boia, deh!',
 				'Il mio tesssoro!',
@@ -157,29 +158,48 @@ var app = new Vue(
 				'Al mio segnale, scatenate l’inferno',
 				'Hasta la vista, baby.'
 			],
-			replyDelay: 1000,
-			msgEditIsOpen: false
+			//* EDIT MESSAGES *//
+			msgOverIndex: -1,
+			msgEditPanelIsOpen: false
 		},
 		methods: {
 			//* USER/CONTACT INFOS *//
-			contactImageSrc(index) {
-				return this.pathToImg+'avatar'+this.contacts[index].avatar+'.jpg';
+			imageSrc(contact) {
+				return this.pathToImg+'avatar'+contact.avatar+'.jpg';
 			},
 			//* CHAT DISPLAY *//
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
 				this.inputMsgFocus();
 			},
+			lastMsg(contact) {
+				let mes = contact.messages;
+				if (mes.length > 0) {
+					let {text,date} = mes[mes.length-1];
+					if (text.length>30) text = text.substring(0,30)+'...';
+					return {text,date};
+				} else {
+					return {text:'Nessun messaggio',date:''};
+				}
+			},
+			lastReceivedMsg(contact) {
+				let mes = contact.messages.filter((el) => el.status.includes('received'));
+				if (mes.length > 0) {
+					let date = mes[mes.length-1].date;
+					return `Ultimo messaggio ricevuto il ${date.split(' ')[0]} alle ${date.split(' ')[1]}`;
+				} else {
+					return 'Nessun messaggio';
+				}
+			},
 			srcChat(srcInput) {
 				this.contacts.forEach((co)=>{
-					if (!co.name.toLowerCase().includes(srcInput.toLowerCase())) {
+					if (!co.name.toLowerCase().includes(srcInput.toLowerCase()))
 						co.visible = false;
-					} else {
+					else
 						co.visible = true;
-					}
 				});
 			},
-			//* MESSAGES *//
+			//* NEW MESSAGES *//
 			addSentMsg() {
 				if (this.msgInput && this.msgInput.trim()) {
 					let msg = {
@@ -194,8 +214,6 @@ var app = new Vue(
 				}
 			},
 			addReceivedMsg() {
-				let n = this.getRndInteger(0,this.replyList.length-1);
-				console.log(n);
 				let msg = {
 					date: this.getNowDate(),
 					text: this.replyList[this.getRndInteger(0,this.replyList.length-1)],
@@ -209,26 +227,22 @@ var app = new Vue(
 					this.addReceivedMsg();
 				},this.replyDelay);
 			},
-			msgEditPanelClick() {
-				if (!this.msgEditIsOpen) 
-					this.msgEditPanelToggle(0);
-				else 
-					this.msgEditPanelToggle(0);
-			},
+			//* EDIT MESSAGES *//
 			msgEditPanelLeave() {
-				if (this.msgEditIsOpen) this.msgEditPanelToggle(500);
+				this.msgEditPanelIsOpen = false; 
 			},
-			msgEditPanelToggle(delay) {
-				setTimeout(()=>{
-					this.msgEditIsOpen = (this.msgEditIsOpen) ? false : true;
-				},delay);
+			msgEditPanelOver() {
+				this.msgEditPanelIsOpen = true;
 			},
 			msgDelete(message) {
-				console.log('delete');
-				console.log(message);
+				message.text = 'questo messaggio è stato cancellato';
+				message.status += ' deleted';
+			},
+			msgAnnihilate(index) {
+				this.contacts[this.contactSelectedIndex].messages.splice(index,1);
 			},
 			msgInfos(message) {
-				console.log('infos');
+				console.log('che voi sape\'?');
 				console.log(message);
 			},
 			//* OTHER STUFF *//
@@ -251,17 +265,6 @@ var app = new Vue(
 			this.inputMsgFocus();
 		},
 		computed: {
-			userImageSrc() {
-				return this.pathToImg+'avatar'+this.user.avatar+'.jpg';
-			},
-			contactLastMsg() {
-				let receivedMsgList = this.contacts[this.contactSelectedIndex].messages.filter((el) => el.status == 'received');
-				let date = receivedMsgList[receivedMsgList.length-1].date;
-				return { day:date.split(' ')[0], hour:date.split(' ')[1] };
-			},
-			// msgEditPanel() {
-			// 	return (this.msgEditIsOpen) ? false : true;
-			// }
 		}
 	}
 );

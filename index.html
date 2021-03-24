@@ -24,27 +24,6 @@
 	</head>
 	<body>
 
-		<!------------------------------------------
-
-		nome repo: js-html-css-boolzap
-
-		Milestone 1:
-		● Replica della grafica con la possibilità di avere messaggi scritti 
-			dall’utente (verdi) e dall’interlocutore (bianco) 
-			assegnando due classi CSS diverse
-		● Visualizzazione dinamica della lista contatti: 
-			tramite la direttiva v-for, visualizzare nome e immagine di ogni contatto
-
-		Milestone 2
-		● Visualizzazione dinamica dei messaggi: 
-			tramite la direttiva v-for, 
-			visualizzare tutti i messaggi relativi al contatto attivo 
-			all’interno del pannello della conversazione
-		● Click sul contatto mostra la conversazione del contatto cliccato
-
-
-		------------------------------------------->
-
 		<div id="root" class="flex-row-co">
 
 			<div class="main_wrapper flex-row">
@@ -54,10 +33,10 @@
 
 					<!-- ** left header ** -->
 					<div class="left_header flex-row">
-						<!-- ------------------------------------------------- -->
+						<!-- --------------------------- will be component --- -->
 						<div class="component flex-row">
 							<div class="avatar_img">
-								<img :src="userImageSrc" alt="">
+								<img :src="imageSrc(user)" alt="">
 							</div>
 							<div class="avatar_name flex-row-cv">
 								<div class="txt_1">{{user.name}}</div>
@@ -84,35 +63,38 @@
 
 					<!-- ** left search ** -->
 					<div class="left_search flex-row-cv">
-						<!-- ! todo fare con label -->
+						<!-- ! fare con label -->
 						<div class="search_btn">
 							<i class="fas fa-search"></i>
 						</div>
 						<div class="input_text_field flex-grow-1">
 							<input type="text" placeholder="Cerca o ninizia una nuova chat"
-								v-model="srcInput"
-								@keyup="srcChat(srcInput)" 
-								ref="srcInputField">
+									v-model="srcInput"
+									@keyup="srcChat(srcInput)">
 						</div>
 					</div>
 
 					<!-- ** chat list contanier ** -->
 					<div class="chat_list_contanier flex-grow-1">
 						<div class="contact flex-row" 
-							v-for="(contact,index) in contacts" 
-							:class="(index == contactSelectedIndex)?'selected':null" 
-							@click="chatBtn(index)"
-							v-if="contact.visible">
-							<!-- ------------------------------------------------- -->
+								v-for="(contact,index) in contacts" 
+								:class="(index == contactSelectedIndex)?'selected':null" 
+								@click="chatBtn(index)"
+								v-if="contact.visible">
+							<!-- --------------------------- will be component --- -->
 							<div class="component flex-row">
 								<div class="avatar_img">
-									<img :src="contactImageSrc(index)" alt="">
+									<img :src="imageSrc(contact)" alt="">
 								</div>
 								<div class="avatar_name flex-row-cv">
 									<div class="txt_1">{{contact.name}}</div>
 								</div>
 							</div>
 							<!-- ------------------------------------------------- -->
+							<div class="chat_info flex-col-cv flex-col-right">
+								<div class="txt_2">{{lastMsg(contact).text}}</div>
+								<div class="txt_2">{{lastMsg(contact).date}}</div>
+							</div>
 						</div> <!-- v-for: contact,index -->
 					</div>
 
@@ -123,13 +105,13 @@
 
 					<!-- ** right header ** -->
 					<div class="right_header flex-row">
-						<!-- ------------------------------------------------- -->
+						<!-- --------------------------- will be component --- -->
 						<div class="contact_avatar">
-							<img :src="contactImageSrc(contactSelectedIndex)" alt="">
+							<img :src="imageSrc(contacts[contactSelectedIndex])" alt="">
 						</div>
 						<div class="contact_info flex-grow-1">
 							<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
-							<div class="txt_2">Ultimo accesso il {{contactLastMsg.day}} alle {{contactLastMsg.hour}}</div>
+							<div class="txt_2">{{lastReceivedMsg(contacts[contactSelectedIndex])}}</div>
 						</div>
 						<!-- ------------------------------------------------- -->
 						<div class="contact_icons flex-row-cv">
@@ -142,17 +124,26 @@
 					<!-- ** chat container ** -->
 					<div class="chat_container flex-grow-1">
 						<div class="chat_msg_list flex-col-co">
-							<div class="msg_row flex-col" v-for="message in contacts[contactSelectedIndex].messages">
-								<div class="msg" :class="message.status">
-									<div class="msg_text txt_1">{{message.text}}</div>
+							<div class="msg_row flex-col" v-for="(message,index) in contacts[contactSelectedIndex].messages">
+								<div class="msg"
+										:class="message.status"
+										@mouseover="msgOverIndex = index"
+										@mouseleave="msgOverIndex = -1">
+									<div class="msg_text txt_1" :class="{deleted: message.status.includes('deleted')}">{{message.text}}</div>
 									<div class="msg_date txt_4">{{message.date}}</div>
-									<div class="msg_edit"
-										@mouseleave="msgEditPanelLeave"
-										@click="msgEditPanelClick">
-										<i class="fas fa-angle-down"></i>
-										<div v-show="msgEditIsOpen" class="msg_edit_box">
+									<div class="msg_edit">
+										<i class="fas fa-angle-down"
+												v-if="index == msgOverIndex"
+												@mouseleave="msgEditPanelLeave"
+												@click="msgEditPanelIsOpen = !msgEditPanelIsOpen">
+										</i>
+										<div class="msg_edit_panel"
+												v-show="index == msgOverIndex && msgEditPanelIsOpen"
+												@mouseover="msgEditPanelOver"
+												@mouseleave="msgEditPanelLeave">
 											<div class="msg_info txt_1" @click="msgInfos(message)">Message Info</div>
-											<div class="msg_del txt_1"  @click="msgDelete(message)">Delete Message</div>
+											<div class="msg_info txt_1" @click="msgDelete(message)">Delete Message</div>
+											<div class="msg_info txt_1" @click="msgAnnihilate(index)">Annihilate Message</div>
 										</div>
 									</div>
 								</div>
@@ -165,12 +156,12 @@
 						<i class="far fa-smile"></i>
 						<div class="input_text_field flex-grow-1">
 							<input type="text" placeholder="Scrivi un messaggio" 
-								v-model="msgInput" 
-								@keyup.enter="addSentMsg" 
-								ref="msgInputField">
+									v-model="msgInput" 
+									@keyup.enter="addSentMsg" 
+									ref="msgInputField">
 						</div>
 						<i class="fas fa-microphone" v-if="msgInput==''"></i>
-						<i class="fab fa-telegram-plane" v-else @click="addSentMsg"></i>
+						<i class="fab fa-telegram-plane" @click="addSentMsg" v-else></i>
 					</div>
 
 				</div> <!-- right_side -->

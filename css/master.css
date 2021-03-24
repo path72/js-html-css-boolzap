@@ -125,7 +125,7 @@ a:hover {
 	border: none;
 	outline: none;
 	font-size: 0.8em;
-	/* ! todo fare con label */
+	/* ! fare con label */
 	/* border-radius: 3px; */
 	/* border: 1px dashed green; */
 }
@@ -153,6 +153,11 @@ a:hover {
 .left_side .chat_list_contanier .contact:hover {
 	background-color: var(--head_grey);
 }
+.left_side .chat_list_contanier .contact .chat_info {
+	width: 100%;
+	text-align: right;
+	/* border: 1px dashed green; */
+}
 
 /****************************************************************
 **  RIGHT SIDE
@@ -160,7 +165,7 @@ a:hover {
 .right_side {
 	width: 65%;
 	height: 100%;
-	min-width: 370px;
+	min-width: 420px;
 }
 
 /** right header **/
@@ -264,6 +269,9 @@ a:hover {
 	padding: 10px 10px 0;
 	border-radius: 10px;
 }
+.msg_row .msg .msg_text {
+	max-width: 220px;
+}
 .msg_row .msg .msg_date {
 	text-align: right;
 }
@@ -278,39 +286,36 @@ a:hover {
 
 /** message edit **/
 .msg_row .msg .msg_edit {
-	display: none;
 	position: absolute;
 	top: 5px;
-	right: 10px;
+	right: 5px;
 	/* border: 1px dashed green; */
 }
-.msg_row .msg:hover .msg_edit {
-	display: block;
-	cursor: pointer;
-}
 .msg_row .msg .msg_edit .fas {
-	padding: 0 5px;
+	padding: 0 5px 0 30px;
 	font-size: 1.3em;
 	color: var(--middle_grey);
+	cursor: pointer;
+	/* border: 1px dashed green; */
 }
-.msg_row .msg .msg_edit .msg_edit_box { 
+.msg_row .msg .msg_edit .msg_edit_panel { 
 	position: absolute;
 	top: 20px;
 	right: 0px;
 	z-index: 2;
-	width: 160px;
-	/* height: 100px; */
+	width: 180px;
 	padding: 20px;
 	background-color: var(--white);
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.msg_row .msg .msg_edit .msg_edit_box .msg_info, 
-.msg_row .msg .msg_edit .msg_edit_box .msg_del {
+.msg_row .msg .msg_edit .msg_edit_panel .msg_info {
 	padding: 5px 10px;
 	cursor: pointer;
 }
-
-
+.msg_row .msg .deleted {
+	font-style: italic;
+	color: var(--middle_grey);
+}
 
 /****************************************************************
 **  FLEX STRUCTURE
@@ -351,6 +356,9 @@ a:hover {
 }
 .flex-row-right {
 	justify-content: flex-end;
+}
+.flex-col-right {
+	align-items: flex-end;
 }
 
 
