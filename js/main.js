@@ -101,23 +101,49 @@ var app = new Vue(
 			},
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
+				this.inputMsgFocus();
 			},
 			addSentMsg() {
 				if (this.msgInput && this.msgInput.trim()) {
-					let n = dayjs();
 					let msg = {
-						date: n.format('DD/MM/YYYY HH:mm:ss'),
+						date: this.getNowDate(),
 						text: this.msgInput,
 						status: 'sent'
 					};
 					this.contacts[this.contactSelectedIndex].messages.push(msg);
 					this.msgInput = '';
+					this.inputMsgFocus();
+					this.contactAutoReplay();
 				}
+			},
+			addReceivedMsg() {
+				let msg = {
+					date: this.getNowDate(),
+					text: 'Ok!',
+					status: 'received'
+				};
+				this.contacts[this.contactSelectedIndex].messages.push(msg);
+				this.inputMsgFocus();
+			},
+			contactAutoReplay() {
+				setTimeout(()=>{
+					this.addReceivedMsg();
+				},3000);
+			},
+			getNowDate() {
+				let n = dayjs();
+				return n.format('DD/MM/YYYY HH:mm:ss');
+			},
+			inputMsgFocus() {
+				this.$refs.msgInputField.focus();
 			}
 		},
 		created: function() {
+			console.log(this);
+			console.log('---- Vue created ----');
 		},
 		mounted: function() {
+			this.inputMsgFocus();
 		},
 		computed: {
 			userImageSrc() {
@@ -132,11 +158,6 @@ var app = new Vue(
 	}
 );
 // Vue.config.devtools = true;
-
-
-var now = dayjs();
-console.log(now);
-
 
 //###################################################### 
 //# DYNAMICS - jQuery                                  # 
