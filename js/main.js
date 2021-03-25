@@ -1,36 +1,4 @@
 //###################################################### 
-//# COMPONENTS - Vue.js                                # 
-//###################################################### 
-
-/**
- * component name: kebab-case (HTML tag)
- * props: camelCase in js > kebab-case as HTML attributes
- * 
- * ! collegare valore di component a roba di Vue()
- */
-// 
-Vue.component('person-display', {
-	// basic mode  
-	props: ['person','update'],
-	// specifying type
-	// props: {
-	// 	person: Object,
-	// 	update: String,
-	// },
-	template: `
-	<div class="component flex-row">
-		<div class="avatar_img">
-			<img :src="'img/avatar'+person.avatar+'.jpg'" alt="">
-		</div>
-		<div class="avatar_name flex-col-cv">
-			<div class="txt_1">{{person.name}}</div>
-			<div class="txt_2">{{update}}</div>
-		</div>
-	</div>
-	`
-});
-
-//###################################################### 
 //# MAIN INSTANCE - Vue.js                             # 
 //###################################################### 
 
@@ -346,6 +314,35 @@ var app = new Vue(
 		computed: {
 			selectedContactUpdate() {
 				return this.lastReceivedMsg(this.contacts[this.contactSelectedIndex],this.isWriting);
+			}
+		},
+		/**
+		 * component name: kebab-case (HTML tag)
+		 * props: camelCase in js > kebab-case as HTML attributes
+		 * 
+		 * ! chiamare imageSrc(obj) dal component !
+		 */
+		// 
+		components : {
+			'person-display': {
+				// basic mode  
+				props: ['person','update'],
+				// specifying type
+				// props: {
+				// 	person: Object,
+				// 	update: String,
+				// },
+				template: `
+				<div class="component flex-row">
+					<div class="avatar_img">
+						<img :src="'img/avatar'+person.avatar+'.jpg'" alt="">
+					</div>
+					<div class="avatar_name flex-col-cv">
+						<div class="txt_1">{{person.name}}</div>
+						<div class="txt_2">{{update}}</div>
+					</div>
+				</div>
+				`
 			}
 		}
 	}
