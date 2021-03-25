@@ -6,7 +6,7 @@ var app = new Vue(
 	{
 		el: '#root',
 		data: {
-			//* USER/CONTACT INFOS *//
+			//* PERSON INFOS *//
 			pathToImg: 'img/',
 			user: {
 				name: 'Dovahkiin',
@@ -90,9 +90,6 @@ var app = new Vue(
 							text: 'Tutto fatto!',
 							status: 'received'
 						}
-
-
-
 						////////////
 					],
 				},
@@ -186,10 +183,11 @@ var app = new Vue(
 			],
 			//* EDIT MESSAGES *//
 			msgOverIndex: -1,
-			msgEditPanelIsOpen: false
+			msgEditPanelIsOpen: false,
+			value: '<br>'
 		},
 		methods: {
-			//* USER/CONTACT INFOS *//
+			//* PERSON INFOS *//
 			imageSrc(contact) {
 				return this.pathToImg+'avatar'+contact.avatar+'.jpg';
 			},
@@ -203,7 +201,7 @@ var app = new Vue(
 				let mes = contact.messages;
 				if (mes.length > 0) {
 					let {text,date} = mes[mes.length-1];
-					if (text.length>30) text = text.substring(0,30)+'...';
+					if (text.length > 30) text = text.substring(0,30)+'...';
 					return {text,date};
 				} else {
 					return {text:'Nessun messaggio',date:''};
@@ -211,7 +209,7 @@ var app = new Vue(
 			},
 			lastReceivedMsg(contact, waiting) {
 				if (waiting) {
-					return 'Sta scrivendo...';
+					return contact.name+' sta scrivendo...';
 				} else {
 					let mes = contact.messages.filter((el) => el.status.includes('received'));
 					if (mes.length > 0) {
@@ -240,8 +238,9 @@ var app = new Vue(
 					};
 					this.contacts[this.contactSelectedIndex].messages.push(msg);
 					this.msgInput = '';
-					this.inputMsgFocus();
 					this.contactAutoReplay();
+					this.scrollToLastMsg();
+					this.inputMsgFocus();
 				}
 			},
 			addReceivedMsg() {
@@ -251,7 +250,9 @@ var app = new Vue(
 					status: 'received'
 				};
 				this.contacts[this.contactSelectedIndex].messages.push(msg);
+				this.scrollToLastMsg();
 				this.inputMsgFocus();
+
 			},
 			contactAutoReplay() {
 				this.isWriting = true;
@@ -281,12 +282,8 @@ var app = new Vue(
 			//* OTHER STUFF *//
 			scrollToLastMsg() {
 				this.$nextTick(() => {
-					// metti in view l'ultimo messaggio
 					let msgList = document.getElementsByClassName('msg_row');
-					msgList[msgList.length-1].scrollIntoView();					
-					// scrolla la lista dei messaggi della sua parte fuori view
-					// let container = this.$el.querySelector('.chat_msg_list');
-					// container.scrollTop = container.scrollHeight;
+					msgList[msgList.length-1].scrollIntoView();
 				});
 			},
 			getNowDate() {
@@ -301,10 +298,11 @@ var app = new Vue(
 			}
 		},
 		created: function() {
-			console.log(this);
 			console.log('---- Vue created ----');
+			console.log(this);
 		},
 		mounted: function() {
+			console.log('---- Vue mounted ----');
 			this.inputMsgFocus();
 			this.scrollToLastMsg();
 		},
@@ -316,22 +314,19 @@ var app = new Vue(
 				return this.lastReceivedMsg(this.contacts[this.contactSelectedIndex],this.isWriting);
 			}
 		},
-		/**
-		 * component name: kebab-case (HTML tag)
-		 * props: camelCase in js > kebab-case as HTML attributes
-		 * 
-		 * ! chiamare imageSrc(obj) dal component !
-		 */
-		// 
 		components : {
 			'person-display': {
-				// basic mode  
+				// basic prop declaring  
 				props: ['person','update'],
-				// specifying type
+				// validate type declaring
 				// props: {
 				// 	person: Object,
 				// 	update: String,
 				// },
+				data: function() { // isolamento dello scope dei data
+					return {
+					}
+				},
 				template: `
 				<div class="component flex-row">
 					<div class="avatar_img">
