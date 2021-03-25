@@ -111,7 +111,7 @@
 						</div>
 						<div class="contact_info flex-grow-1">
 							<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
-							<div class="txt_2">{{lastReceivedMsg(contacts[contactSelectedIndex])}}</div>
+							<div class="txt_2">{{selectedContactUpdate}}</div>
 						</div>
 						<!-- ------------------------------------------------- -->
 						<div class="contact_icons flex-row-cv">
@@ -125,7 +125,7 @@
 					<div class="chat_container flex-grow-1">
 						<div class="chat_msg_list flex-col-co">
 							<div class="msg_row flex-col" v-for="(message,index) in contacts[contactSelectedIndex].messages">
-								<div class="msg"
+								<div class="msg" :id="'msg'+index"
 										:class="message.status"
 										@mouseover="msgOverIndex = index"
 										@mouseleave="msgOverIndex = -1">

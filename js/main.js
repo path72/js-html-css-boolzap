@@ -3,12 +3,7 @@
 //###################################################### 
 
 Vue.component('usrDisplay1', {
-	/**
-	 * passare
-	 * src immagine, qui: imageSrc(user)
-	 * nome avatar,  qui: user.name
-	 * 
-	 */
+	props: ['user'],
 	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
@@ -21,12 +16,7 @@ Vue.component('usrDisplay1', {
 	`
 });
 Vue.component('usrDisplay2', {
-	/**
-	 * passare
-	 * src immagine, qui: imageSrc(contact)
-	 * nome avatar,  qui: contact.name
-	 * 
-	 */
+	props: ['contact'],
 	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
@@ -134,6 +124,7 @@ var app = new Vue(
 			contactSelectedIndex: 0,
 			msgInput: '',
 			srcInput: '',
+			isWriting: false,
 			//* NEW MESSAGES *//
 			replyDelay: 2000,
 			replyList: [
@@ -169,8 +160,10 @@ var app = new Vue(
 			},
 			//* CHAT DISPLAY *//
 			chatBtn(index) {
+				this.scrollToLastMsg();
 				this.contactSelectedIndex = index;
 				this.inputMsgFocus();
+				// ! poi togli sta cosa !
 			},
 			lastMsg(contact) {
 				let mes = contact.messages;
@@ -182,13 +175,17 @@ var app = new Vue(
 					return {text:'Nessun messaggio',date:''};
 				}
 			},
-			lastReceivedMsg(contact) {
-				let mes = contact.messages.filter((el) => el.status.includes('received'));
-				if (mes.length > 0) {
-					let date = mes[mes.length-1].date;
-					return `Ultimo messaggio ricevuto il ${date.split(' ')[0]} alle ${date.split(' ')[1]}`;
+			lastReceivedMsg(contact, waiting) {
+				if (waiting) {
+					return 'Sta scrivendo...';
 				} else {
-					return 'Nessun messaggio';
+					let mes = contact.messages.filter((el) => el.status.includes('received'));
+					if (mes.length > 0) {
+						let date = mes[mes.length-1].date;
+						return `Ultimo messaggio ricevuto il ${date.split(' ')[0]} alle ${date.split(' ')[1]}`;
+					} else {
+						return 'Nessun messaggio';
+					}
 				}
 			},
 			srcChat(srcInput) {
@@ -223,7 +220,9 @@ var app = new Vue(
 				this.inputMsgFocus();
 			},
 			contactAutoReplay() {
+				this.isWriting = true;
 				setTimeout(()=>{
+					this.isWriting = false;
 					this.addReceivedMsg();
 				},this.replyDelay);
 			},
@@ -246,6 +245,10 @@ var app = new Vue(
 				console.log(message);
 			},
 			//* OTHER STUFF *//
+			scrollToLastMsg() {
+				let msgList = document.getElementsByClassName('msg');
+				msgList[msgList.length-1].scrollIntoView();
+			},
 			getNowDate() {
 				let n = dayjs();
 				return n.format('DD/MM/YYYY HH:mm:ss');
@@ -265,6 +268,9 @@ var app = new Vue(
 			this.inputMsgFocus();
 		},
 		computed: {
+			selectedContactUpdate() {
+				return this.lastReceivedMsg(this.contacts[this.contactSelectedIndex],this.isWriting);
+			}
 		}
 	}
 );
