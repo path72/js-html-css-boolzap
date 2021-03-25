@@ -240,7 +240,6 @@ a:hover {
 }
 .component .avatar_img {
 	height: 100%;
-	/* border: 1px dashed green; */
 }
 .component .avatar_img img {
 	height: 100%;
@@ -248,11 +247,8 @@ a:hover {
 }
 .component .avatar_name {
 	padding-left: 10px;
-	/* height: 100%; */
-	/* text-align: left; */
 	/* border: 1px dashed green; */
 }
-
 
 /****************************************************************
 **  MESSAGES
@@ -360,7 +356,6 @@ a:hover {
 .flex-col-right {
 	align-items: flex-end;
 }
-
 
 /****************************************************************
 **  TEXTS

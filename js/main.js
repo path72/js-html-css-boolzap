@@ -1,33 +1,38 @@
 //###################################################### 
-//# DYNAMICS - Vue.js                                  # 
+//# COMPONENTS - Vue.js                                # 
 //###################################################### 
 
-Vue.component('usrDisplay1', {
-	props: ['user'],
+/**
+ * component name: kebab-case (HTML tag)
+ * props: camelCase in js > kebab-case as HTML attributes
+ * 
+ * ! collegare valore di component a roba di Vue()
+ */
+// 
+Vue.component('person-display', {
+	// basic mode  
+	props: ['person','update'],
+	// specifying type
+	// props: {
+	// 	person: Object,
+	// 	update: String,
+	// },
 	template: `
 	<div class="component flex-row">
 		<div class="avatar_img">
-			<img :src="imageSrc(user)" alt="">
+			<img :src="'img/avatar'+person.avatar+'.jpg'" alt="">
 		</div>
-		<div class="avatar_name flex-row-cv">
-			<div class="txt_1">{{user.name}}</div>
+		<div class="avatar_name flex-col-cv">
+			<div class="txt_1">{{person.name}}</div>
+			<div class="txt_2">{{update}}</div>
 		</div>
 	</div>
 	`
 });
-Vue.component('usrDisplay2', {
-	props: ['contact'],
-	template: `
-	<div class="component flex-row">
-		<div class="avatar_img">
-			<img :src="imageSrc(contact)" alt="">
-		</div>
-		<div class="avatar_name flex-row-cv">
-			<div class="txt_1">{{contact.name}}</div>
-		</div>
-	</div>
-	`
-});
+
+//###################################################### 
+//# MAIN INSTANCE - Vue.js                             # 
+//###################################################### 
 
 var app = new Vue(
 	{
@@ -58,7 +63,69 @@ var app = new Vue(
 							date: '10/01/2020 16:15:22',
 							text: 'Tutto fatto!',
 							status: 'received'
+						},
+						/////////////
+						{
+							date: '10/01/2020 15:30:55',
+							text: 'Hai portato a spasso il cane?',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 15:50:00',
+							text: 'Ricordati di dargli da mangiare',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 16:15:22',
+							text: 'Tutto fatto!',
+							status: 'received'
+						},						{
+							date: '10/01/2020 15:30:55',
+							text: 'Hai portato a spasso il cane?',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 15:50:00',
+							text: 'Ricordati di dargli da mangiare',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 16:15:22',
+							text: 'Tutto fatto!',
+							status: 'received'
+						},						{
+							date: '10/01/2020 15:30:55',
+							text: 'Hai portato a spasso il cane?',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 15:50:00',
+							text: 'Ricordati di dargli da mangiare',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 16:15:22',
+							text: 'Tutto fatto!',
+							status: 'received'
+						},						{
+							date: '10/01/2020 15:30:55',
+							text: 'Hai portato a spasso il cane?',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 15:50:00',
+							text: 'Ricordati di dargli da mangiare',
+							status: 'sent'
+						},
+						{
+							date: '10/01/2020 16:15:22',
+							text: 'Tutto fatto!',
+							status: 'received'
 						}
+
+
+
+						////////////
 					],
 				},
 				{	name: 'Fabio',
@@ -160,10 +227,9 @@ var app = new Vue(
 			},
 			//* CHAT DISPLAY *//
 			chatBtn(index) {
-				this.scrollToLastMsg();
 				this.contactSelectedIndex = index;
 				this.inputMsgFocus();
-				// ! poi togli sta cosa !
+				this.scrollToLastMsg();
 			},
 			lastMsg(contact) {
 				let mes = contact.messages;
@@ -246,8 +312,14 @@ var app = new Vue(
 			},
 			//* OTHER STUFF *//
 			scrollToLastMsg() {
-				let msgList = document.getElementsByClassName('msg');
-				msgList[msgList.length-1].scrollIntoView();
+				this.$nextTick(() => {
+					// metti in view l'ultimo messaggio
+					let msgList = document.getElementsByClassName('msg_row');
+					msgList[msgList.length-1].scrollIntoView();					
+					// scrolla la lista dei messaggi della sua parte fuori view
+					// let container = this.$el.querySelector('.chat_msg_list');
+					// container.scrollTop = container.scrollHeight;
+				});
 			},
 			getNowDate() {
 				let n = dayjs();
@@ -266,6 +338,10 @@ var app = new Vue(
 		},
 		mounted: function() {
 			this.inputMsgFocus();
+			this.scrollToLastMsg();
+		},
+		updated: function() {
+			// console.log('updated');
 		},
 		computed: {
 			selectedContactUpdate() {
@@ -275,6 +351,7 @@ var app = new Vue(
 	}
 );
 // Vue.config.devtools = true;
+
 
 //###################################################### 
 //# DYNAMICS - jQuery                                  # 

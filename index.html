@@ -33,15 +33,17 @@
 
 					<!-- ** left header ** -->
 					<div class="left_header flex-row">
-						<!-- --------------------------- will be component --- -->
-						<div class="component flex-row">
+						<!-- ---------------------------------------- template -->
+						<!-- <div class="component flex-row">
 							<div class="avatar_img">
 								<img :src="imageSrc(user)" alt="">
 							</div>
 							<div class="avatar_name flex-row-cv">
 								<div class="txt_1">{{user.name}}</div>
 							</div>
-						</div>
+						</div> -->
+						<!-- --------------------------------------- component -->
+						<person-display :person="user"></person-display>
 						<!-- ------------------------------------------------- -->
 						<div class="usr_icons flex-row-cv flex-row-right flex-grow-1">
 							<i class="fas fa-circle-notch"></i>
@@ -81,17 +83,19 @@
 								:class="(index == contactSelectedIndex)?'selected':null" 
 								@click="chatBtn(index)"
 								v-if="contact.visible">
-							<!-- --------------------------- will be component --- -->
-							<div class="component flex-row">
+							<!-- ---------------------------------------- template -->
+							<!-- <div class="component flex-row">
 								<div class="avatar_img">
 									<img :src="imageSrc(contact)" alt="">
 								</div>
 								<div class="avatar_name flex-row-cv">
 									<div class="txt_1">{{contact.name}}</div>
 								</div>
-							</div>
+							</div> -->
+							<!-- --------------------------------------- component -->
+							<person-display :person="contact"></person-display>
 							<!-- ------------------------------------------------- -->
-							<div class="chat_info flex-col-cv flex-col-right">
+							<div class="chat_info flex-col-cv flex-col-right flex-grow-1">
 								<div class="txt_2">{{lastMsg(contact).text}}</div>
 								<div class="txt_2">{{lastMsg(contact).date}}</div>
 							</div>
@@ -105,16 +109,23 @@
 
 					<!-- ** right header ** -->
 					<div class="right_header flex-row">
-						<!-- --------------------------- will be component --- -->
-						<div class="contact_avatar">
-							<img :src="imageSrc(contacts[contactSelectedIndex])" alt="">
-						</div>
-						<div class="contact_info flex-grow-1">
-							<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
-							<div class="txt_2">{{selectedContactUpdate}}</div>
-						</div>
+						<!-- ---------------------------------------- template -->
+						<!-- <div class="component flex-row">
+							<div class="avatar_img">
+								<img :src="imageSrc(contacts[contactSelectedIndex])" alt="">
+							</div>
+							<div class="avatar_name flex-col-cv">
+								<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
+								<div class="txt_2">{{selectedContactUpdate}}</div>
+							</div>
+						</div> -->
+						<!-- --------------------------------------- component -->
+						<person-display 
+							:person="contacts[contactSelectedIndex]" 
+							:update="selectedContactUpdate">
+						</person-display>
 						<!-- ------------------------------------------------- -->
-						<div class="contact_icons flex-row-cv">
+						<div class="contact_icons flex-row-cv flex-row-right flex-grow-1">
 							<i class="fas fa-search"></i>
 							<i class="fas fa-paperclip"></i>
 							<i class="fas fa-ellipsis-v"></i>
