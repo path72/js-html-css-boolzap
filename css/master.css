@@ -109,28 +109,27 @@ a:hover {
 /** left search **/
 .left_side .left_search {
 	height: 40px;
+	padding: 5px 10px;
 	background-color: var(--search_grey);
 }
 .left_side .left_search [class^="fa"] {
-	margin-left: 6px;
-	padding: 8px 20px;
+	padding: 7px 15px;
 	font-size: 0.8em;
 	color: var(--icon_grey);
 	background-color: var(--white);
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
 	/* border: 1px dashed green; */
 }
-.left_side .left_search .input_text_field input {
-	width: 98%;
-	padding: 6px;
+.left_side .left_search input {
+	width: 100%;
+	padding: 7px;
 	border: none;
 	outline: none;
-	font-size: 0.8em;
-	/* ! fare con label */
-	/* border-radius: 3px; */
+	font-size: 0.7em;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
 	/* border: 1px dashed green; */
-}
-.left_side .left_search .input_text_field input::placeholder {
-	font-size: 0.8em;
 }
 
 /** chat list contanier **/

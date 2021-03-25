@@ -159,8 +159,8 @@ var app = new Vue(
 			contactSelectedIndex: 0,
 			msgInput: '',
 			srcInput: '',
-			isWriting: false,
 			//* NEW MESSAGES *//
+			isWriting: false,
 			replyDelay: 2000,
 			replyList: [
 				'Boia, deh!',

@@ -65,15 +65,12 @@
 
 					<!-- ** left search ** -->
 					<div class="left_search flex-row-cv">
-						<!-- ! fare con label -->
-						<div class="search_btn">
+						<label for="search">
 							<i class="fas fa-search"></i>
-						</div>
-						<div class="input_text_field flex-grow-1">
-							<input type="text" placeholder="Cerca o ninizia una nuova chat"
-									v-model="srcInput"
-									@keyup="srcChat(srcInput)">
-						</div>
+						</label>
+						<input id="search" type="text" placeholder="Cerca o inizia una nuova chat"
+								v-model="srcInput"
+								@keyup="srcChat(srcInput)">
 					</div>
 
 					<!-- ** chat list contanier ** -->
