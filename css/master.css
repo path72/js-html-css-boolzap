@@ -288,7 +288,10 @@ a:hover {
 	color: var(--middle_grey);
 }
 
-/** message edit panel **/
+/****************************************************************
+**  MESSAGE EDIT PANEL
+*/
+
 .msg_row .msg .msg_edit {
 	position: absolute;
 	top: 5px;
@@ -342,6 +345,7 @@ a:hover {
 	background-color: var(--white);
 }
 #msg_info_panel .info_box {
+	max-width: 400px;
 	padding: 30px;
 	border-radius: 5px;
 	background-color: var(--head_grey);
@@ -361,10 +365,10 @@ a:hover {
 }
 
 .info_panel_fade-enter-active { /* duration in */
-	transition: all .2s ease-out;
+	transition: all .1s ease-out;
 }
 .info_panel_fade-leave-active { /* duration out */
-	transition: all .4s ease-in;
+	transition: all .1s ease-in;
 }
 .info_panel_fade-enter,     /* transition in starting time */
 .info_panel_fade-leave-to { /* transition out ending time */

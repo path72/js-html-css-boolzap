@@ -184,15 +184,12 @@ var app = new Vue(
 			//* EDIT MESSAGES *//
 			msgOverIndex: -1,
 			msgEditPanelIsOpen: false,
+			//* MESSAGE INFO PANEL *//
 			msgInfoPanelIsOpen: false,
 			msgInfoPanelContent: '',
 			msgInfoPanelSender: null
 		},
 		methods: {
-			//* PERSON INFOS *//
-			// imageSrc(contact) {
-			// 	return this.pathToImg+'avatar'+contact.avatar+'.jpg';
-			// },
 			//* CHAT DISPLAY *//
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
@@ -222,6 +219,12 @@ var app = new Vue(
 					}
 				}
 			},
+			scrollToLastMsg() {
+				this.$nextTick(() => {
+					let msgList = document.getElementsByClassName('msg_row');
+					msgList[msgList.length-1].scrollIntoView();
+				});
+			},
 			srcChat(srcInput) {
 				this.contacts.forEach((co)=>{
 					if (!co.name.toLowerCase().includes(srcInput.toLowerCase()))
@@ -233,30 +236,28 @@ var app = new Vue(
 			//* NEW MESSAGES *//
 			addSentMsg() {
 				if (this.msgInput && this.msgInput.trim()) {
-					let msg = {
+					this.contacts[this.contactSelectedIndex].messages.push({
 						date: this.getNowDate(),
 						text: this.msgInput,
 						status: 'sent'
-					};
-					this.contacts[this.contactSelectedIndex].messages.push(msg);
+					});
 					this.msgInput = '';
-					this.contactAutoReplay();
 					this.scrollToLastMsg();
+					this.contactAutoReplay();
 					this.inputMsgFocus();
 				}
 			},
 			addReceivedMsg() {
-				let msg = {
+				this.contacts[this.contactSelectedIndex].messages.push({
 					date: this.getNowDate(),
 					text: this.replyList[this.getRndInteger(0,this.replyList.length-1)],
 					status: 'received'
-				};
-				this.contacts[this.contactSelectedIndex].messages.push(msg);
+				});
 				this.scrollToLastMsg();
 				this.inputMsgFocus();
 			},
 			addMicMsg() {
-				// e adesso?
+				console.log('canta!');
 			},
 			contactAutoReplay() {
 				this.isWriting = true;
@@ -289,10 +290,9 @@ var app = new Vue(
 						// this.msgInfoPanelSender = this.user;
 				// });	
 			},
+			//* MESSAGE INFO PANEL *//
 			msgInfoPanelEnter(message) {
-				let chatContainer = document.getElementsByClassName('chat_container')[0];
-				let msgInfoPanel = document.getElementById('msg_info_panel');
-				msgInfoPanel.style.top = chatContainer.scrollTop+'px';
+				this.msgInfoPanelPosition();
 				this.msgInfoPanelSender = this.getMsgSender(message);
 				this.msgInfoPanelContent = `
 					Testo: ${message.text}
@@ -303,22 +303,14 @@ var app = new Vue(
 			msgInfoPanelLeave() {
 				this.msgInfoPanelIsOpen = false;
 			},
-			//* OTHER STUFF *//
-			scrollToLastMsg() {
-				this.$nextTick(() => {
-					let msgList = document.getElementsByClassName('msg_row');
-					msgList[msgList.length-1].scrollIntoView();
-				});
-			},
 			msgInfoPanelPosition() {
 				// this.$nextTick(() => {
-					if (this.msgInfoPanelIsOpen) {
-						let chatContainer = document.getElementsByClassName('chat_container')[0];
-						let msgInfoPanel = document.getElementById('msg_info_panel');
-						msgInfoPanel.style.top = chatContainer.scrollTop+'px';
-					}
+					let chatContainer = document.getElementsByClassName('chat_container')[0];
+					let msgInfoPanel = document.getElementById('msg_info_panel');
+					msgInfoPanel.style.top = chatContainer.scrollTop+'px';
 				// });
 			},
+			//* OTHER STUFF *//
 			getNowDate() {
 				let n = dayjs();
 				return n.format('DD/MM/YYYY HH:mm:ss');

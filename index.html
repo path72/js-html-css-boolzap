@@ -160,7 +160,9 @@
 							</div> <!-- msg_row && v-for: message -->						
 						</div>  <!-- chat_msg_list -->
 						<transition name="info_panel_fade">
-							<div id="msg_info_panel" class="flex-col-cc" v-show="msgInfoPanelIsOpen">
+							<div id="msg_info_panel" class="flex-col-cc"
+									@mouseleave="msgInfoPanelLeave" 
+									v-show="msgInfoPanelIsOpen">
 								<div class="info_box">
 									<div class="info_sender">
 										<!-- --------------------------------------- component -->
