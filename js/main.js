@@ -184,7 +184,7 @@ var app = new Vue(
 			//* EDIT MESSAGES *//
 			msgOverIndex: -1,
 			msgEditPanelIsOpen: false,
-			value: '<br>'
+			msgInfoPanelIsOpen: false
 		},
 		methods: {
 			//* PERSON INFOS *//
@@ -280,9 +280,14 @@ var app = new Vue(
 			msgAnnihilate(index) {
 				this.contacts[this.contactSelectedIndex].messages.splice(index,1);
 			},
-			msgInfos(message) {
+			msgInfoPanelEnter(message) {
 				console.log('che voi sape\'?');
 				console.log(message);
+				this.msgInfoPanelIsOpen = true;
+			},
+			msgInfoPanelLeave() {
+				console.log('che voi sape\'?');
+				this.msgInfoPanelIsOpen = false;
 			},
 			//* OTHER STUFF *//
 			scrollToLastMsg() {

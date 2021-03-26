@@ -282,8 +282,12 @@ a:hover {
 	align-self: flex-end;
 	background-color: var(--bubbleOut);
 }
+.msg_row .msg .deleted {
+	font-style: italic;
+	color: var(--middle_grey);
+}
 
-/** message edit **/
+/** message edit panel **/
 .msg_row .msg .msg_edit {
 	position: absolute;
 	top: 5px;
@@ -311,10 +315,54 @@ a:hover {
 	padding: 5px 10px;
 	cursor: pointer;
 }
-.msg_row .msg .deleted {
-	font-style: italic;
-	color: var(--middle_grey);
+.msg_row .msg .msg_edit .edit_panel_fade-enter-active { /* duration in */
+	transition: opacity .2s;
 }
+.msg_row .msg .msg_edit .edit_panel_fade-leave-active { /* duration out */
+	transition: opacity .4s;
+}
+.msg_row .msg .msg_edit .edit_panel_fade-enter,     /* transition in starting time */
+.msg_row .msg .msg_edit .edit_panel_fade-leave-to { /* transition out ending time */
+	opacity: 0;
+}
+
+/****************************************************************
+**  MESSAGE INFO PANEL
+*/
+
+/** message info panel **/
+.msg_info_panel {
+	position: fixed;
+	top: 60px;
+	right: 0;
+	z-index: 3;
+	width: 200px;
+	height: calc(100% - 120px);
+	background-color: var(--white);
+}
+.info_panel_fade-enter-active { /* duration in */
+	transition: all .2s;
+}
+.info_panel_fade-leave-active { /* duration out */
+	transition: all .4s;
+}
+.info_panel_fade-enter,     /* transition in starting time */
+.info_panel_fade-leave-to { /* transition out ending time */
+	transform: translateX(1000px);
+}
+.close_btn {
+	padding: 10px;
+	cursor: pointer;
+	border: 1px dashed green;
+
+}
+
+
+
+
+
+
+
 
 /****************************************************************
 **  FLEX STRUCTURE

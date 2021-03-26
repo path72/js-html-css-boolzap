@@ -145,19 +145,31 @@
 												@mouseleave="msgEditPanelLeave"
 												@click="msgEditPanelIsOpen = !msgEditPanelIsOpen">
 										</i>
-										<div class="msg_edit_panel"
-												v-show="index == msgOverIndex && msgEditPanelIsOpen"
-												@mouseover="msgEditPanelOver"
-												@mouseleave="msgEditPanelLeave">
-											<div class="msg_info txt_1" @click="msgInfos(message)">Message Info</div>
-											<div class="msg_info txt_1" @click="msgDelete(message)">Delete Message</div>
-											<div class="msg_info txt_1" @click="msgAnnihilate(index)">Annihilate Message</div>
-										</div>
+										<transition name="edit_panel_fade">
+											<div class="msg_edit_panel"
+													v-show="index == msgOverIndex && msgEditPanelIsOpen"
+													@mouseover="msgEditPanelOver"
+													@mouseleave="msgEditPanelLeave">
+												<div class="msg_info txt_1" @click="msgInfoPanelEnter(message)">Message Info</div>
+												<div class="msg_info txt_1" @click="msgDelete(message)">Delete Message</div>
+												<div class="msg_info txt_1" @click="msgAnnihilate(index)">Annihilate Message</div>
+											</div>
+										</transition>
+									</div> <!-- msg_edit -->
+								</div>  <!-- msg -->
+							</div> <!-- msg_row && v-for: message -->						
+							<transition name="info_panel_fade">
+								<div class="msg_info_panel"
+										v-show="msgInfoPanelIsOpen"
+										@mouseover=""
+										@mouseleave="">
+									<div class="close_btn" click="msgInfoPanelLeave">
+										<i class="fas fa-times"></i>
 									</div>
 								</div>
-							</div> <!-- v-for: message -->						
-						</div>
-					</div>
+							</transition>
+						</div>  <!-- chat_msg_list -->
+					</div> <!-- chat_container -->
 
 					<!-- ** input container ** -->
 					<div class="input_container flex-row-cv">
