@@ -161,17 +161,22 @@
 
 					<!-- ** input container ** -->
 					<div class="input_container flex-row-cv">
-						<i class="far fa-smile"></i>
-						<div class="input_text_field flex-grow-1">
-							<textarea placeholder="Scrivi un messaggio" rows="1"
-									v-model="msgInput" 
-									@keyup.enter.exact="addSentMsg"
-									@keyup.enter.shift.exact="addLineToMsg"
-									ref="msgInputField">
-							</textarea>
+						<div class="input_btn_box flex-row-cc">
+							<i class="far fa-smile"></i>
 						</div>
-						<i class="fas fa-microphone" v-if="msgInput==''"></i>
-						<i class="fab fa-telegram-plane" @click="addSentMsg" v-else></i>
+						<textarea class="flex-grow-1" placeholder="Scrivi un messaggio" rows="1"
+								v-model="msgInput" 
+								@keyup.enter.exact="addSentMsg"
+								@keyup.enter.shift.exact="addLineToMsg"
+								ref="msgInputField">
+						</textarea>
+						<div class="input_btn_box flex-row-cc" v-if="msgInput==''">
+							<i class="fas fa-microphone" @click="addMicMsg"></i>
+						</div>
+						<div class="input_btn_box flex-row-cc" @click="addSentMsg" v-else>
+							<!-- <i class="fas fa-paper-plane"></i> -->
+							<i class="fas fa-fist-raised"></i>
+						</div>
 					</div>
 
 				</div> <!-- right_side -->

@@ -253,6 +253,9 @@ var app = new Vue(
 				this.scrollToLastMsg();
 				this.inputMsgFocus();
 			},
+			addMicMsg() {
+				// e adesso?
+			},
 			contactAutoReplay() {
 				this.isWriting = true;
 				setTimeout(()=>{
@@ -261,8 +264,7 @@ var app = new Vue(
 				},this.replyDelay);
 			},
 			addLineToMsg() {
-				console.log('addLineToMsg');
-				this.msgInput = `${this.msgInput}\n`;
+				// this.msgInput = `${this.msgInput}\n`;
 			},
 			//* EDIT MESSAGES *//
 			msgEditPanelLeave() {

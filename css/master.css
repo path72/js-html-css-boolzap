@@ -204,16 +204,20 @@ a:hover {
 /** input container **/
 .right_side .input_container {
 	height: 60px;
+	padding: 5px 0;
 	background-color: var(--input_grey);
 }
-.right_side .input_container [class^="fa"] {
-	padding: 20px 30px;
-	font-size: 1.3em;
-	color: var(--icon_grey);
+.right_side .input_container .input_btn_box {
+	width: 70px;
+	height: 100%;
 	cursor: pointer;
 	/* border: 1px dashed green; */
 }
-.right_side .input_container .input_text_field textarea {
+.right_side [class^="fa"] {
+	font-size: 1.3em;
+	color: var(--icon_grey);
+}
+.right_side .input_container textarea {
 	width: 100%;
 	padding: 13px;
 	border: none;
@@ -221,17 +225,11 @@ a:hover {
 	border-radius: 3px;
 	overflow: hidden;
 	resize: none;
-	line-height: 0.6em;
+	line-height: 1.3em;
 	font-family: 'Roboto', sans-serif;
 }
-.right_side .input_container .input_text_field textarea::placeholder {
+.right_side .input_container textarea::placeholder {
 	font-size: 0.9em;  
-}
-.fa-telegram-plane {
-	font-size: 1em;
-	padding: 20px 0px;
-	color: var(--mypurple);
-	/* border: 1px dashed green; */
 }
 
 /****************************************************************
@@ -271,7 +269,7 @@ a:hover {
 .msg_row .msg .msg_text {
 	max-width: 220px;
 	white-space: pre-wrap;
-	line-height: 0.7em;
+	line-height: 1.3em;
 }
 .msg_row .msg .msg_date {
 	text-align: right;
@@ -330,6 +328,11 @@ a:hover {
 }
 .flex-row-cv {
 	display: flex;
+	align-items: center;
+}
+.flex-row-cc {
+	display: flex;
+	justify-content: center;
 	align-items: center;
 }
 .flex-col {
