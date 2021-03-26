@@ -184,7 +184,9 @@ var app = new Vue(
 			//* EDIT MESSAGES *//
 			msgOverIndex: -1,
 			msgEditPanelIsOpen: false,
-			msgInfoPanelIsOpen: false
+			msgInfoPanelIsOpen: false,
+			msgInfoPanelContent: '',
+			msgInfoPanelSender: null
 		},
 		methods: {
 			//* PERSON INFOS *//
@@ -263,9 +265,6 @@ var app = new Vue(
 					this.addReceivedMsg();
 				},this.replyDelay);
 			},
-			addLineToMsg() {
-				// this.msgInput = `${this.msgInput}\n`;
-			},
 			//* EDIT MESSAGES *//
 			msgEditPanelLeave() {
 				this.msgEditPanelIsOpen = false; 
@@ -280,13 +279,28 @@ var app = new Vue(
 			msgAnnihilate(index) {
 				this.contacts[this.contactSelectedIndex].messages.splice(index,1);
 			},
+			getMsgSender(message) {
+				// this.$nextTick(() => {
+					if (message.status.includes('received'))
+						return this.contacts[this.contactSelectedIndex];
+						// this.msgInfoPanelSender = this.contacts[this.contactSelectedIndex];
+					else
+						return this.user;
+						// this.msgInfoPanelSender = this.user;
+				// });	
+			},
 			msgInfoPanelEnter(message) {
-				console.log('che voi sape\'?');
-				console.log(message);
+				let chatContainer = document.getElementsByClassName('chat_container')[0];
+				let msgInfoPanel = document.getElementById('msg_info_panel');
+				msgInfoPanel.style.top = chatContainer.scrollTop+'px';
+				this.msgInfoPanelSender = this.getMsgSender(message);
+				this.msgInfoPanelContent = `
+					Testo: ${message.text}
+
+					Data: ${message.date}`;
 				this.msgInfoPanelIsOpen = true;
 			},
 			msgInfoPanelLeave() {
-				console.log('che voi sape\'?');
 				this.msgInfoPanelIsOpen = false;
 			},
 			//* OTHER STUFF *//
@@ -295,6 +309,15 @@ var app = new Vue(
 					let msgList = document.getElementsByClassName('msg_row');
 					msgList[msgList.length-1].scrollIntoView();
 				});
+			},
+			msgInfoPanelPosition() {
+				// this.$nextTick(() => {
+					if (this.msgInfoPanelIsOpen) {
+						let chatContainer = document.getElementsByClassName('chat_container')[0];
+						let msgInfoPanel = document.getElementById('msg_info_panel');
+						msgInfoPanel.style.top = chatContainer.scrollTop+'px';
+					}
+				// });
 			},
 			getNowDate() {
 				let n = dayjs();
@@ -310,6 +333,7 @@ var app = new Vue(
 		created: function() {
 			console.log('---- Vue created ----');
 			console.log(this);
+			this.msgInfoPanelSender = this.user; // info panel ne ha bisogno
 		},
 		mounted: function() {
 			console.log('---- Vue mounted ----');
@@ -326,10 +350,8 @@ var app = new Vue(
 		},
 		components : {
 			'person-display': {
-				// basic prop declaring  
-				props: ['person','update'],
-				// validate type declaring
-				// props: {
+				props: ['person','update'], // basic prop declaring  
+				// props: { // validation type declaring
 				// 	person: Object,
 				// 	update: String,
 				// },

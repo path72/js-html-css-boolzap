@@ -58,7 +58,7 @@
 							<i class="fas fa-bell-slash"></i>
 						</div>
 						<div class="notice_message">
-							<div class="txt_1">Ricevi notifiche d nuovi messaggi</div>
+							<div class="txt_1">Ricevi notifiche di nuovi messaggi</div>
 							<div class="txt_3">Attiva le notifiche desktop</div>
 						</div>
 					</div>
@@ -118,8 +118,8 @@
 						</div> -->
 						<!-- --------------------------------------- component -->
 						<person-display
-							:person="contacts[contactSelectedIndex]" 
-							:update="selectedContactUpdate">
+								:person="contacts[contactSelectedIndex]" 
+								:update="selectedContactUpdate">
 						</person-display>
 						<!-- ------------------------------------------------- -->
 						<div class="contact_icons flex-row-cv flex-row-right flex-grow-1">
@@ -158,17 +158,22 @@
 									</div> <!-- msg_edit -->
 								</div>  <!-- msg -->
 							</div> <!-- msg_row && v-for: message -->						
-							<transition name="info_panel_fade">
-								<div class="msg_info_panel"
-										v-show="msgInfoPanelIsOpen"
-										@mouseover=""
-										@mouseleave="">
-									<div class="close_btn" click="msgInfoPanelLeave">
-										<i class="fas fa-times"></i>
-									</div>
-								</div>
-							</transition>
 						</div>  <!-- chat_msg_list -->
+						<transition name="info_panel_fade">
+							<div id="msg_info_panel" class="flex-col-cc" v-show="msgInfoPanelIsOpen">
+								<div class="info_box">
+									<div class="info_sender">
+										<!-- --------------------------------------- component -->
+										<person-display :person="msgInfoPanelSender"></person-display>
+										<!-- ------------------------------------------------- -->
+									</div>
+									<div class="info_data txt_1">{{msgInfoPanelContent}}</div>
+								</div>
+								<div class="close_btn" @click="msgInfoPanelLeave">
+									<i class="fas fa-times"></i>
+								</div>
+							</div>
+						</transition>
 					</div> <!-- chat_container -->
 
 					<!-- ** input container ** -->
@@ -179,7 +184,6 @@
 						<textarea class="flex-grow-1" placeholder="Scrivi un messaggio" rows="1"
 								v-model="msgInput" 
 								@keyup.enter.exact="addSentMsg"
-								@keyup.enter.shift.exact="addLineToMsg"
 								ref="msgInputField">
 						</textarea>
 						<div class="input_btn_box flex-row-cc" v-if="msgInput==''">

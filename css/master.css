@@ -194,8 +194,9 @@ a:hover {
 
 /** chat container **/
 .right_side .chat_container {
+	position: relative;
 	padding: 20px 35px;
-	/* overflow: auto; */
+	overflow-x: hidden;
 	overflow-y: scroll;
 	background-image: url('../img/mine.jpg');
 	/* border: 1px dashed green; */
@@ -331,37 +332,44 @@ a:hover {
 */
 
 /** message info panel **/
-.msg_info_panel {
-	position: fixed;
-	top: 60px;
+#msg_info_panel {
+	position: absolute;
+	top: 0;
 	right: 0;
 	z-index: 3;
-	width: 200px;
-	height: calc(100% - 120px);
+	width: 100%;
+	height: 100%;
 	background-color: var(--white);
 }
+#msg_info_panel .info_box {
+	padding: 30px;
+	border-radius: 5px;
+	background-color: var(--head_grey);
+}
+#msg_info_panel .info_sender {
+	height: 60px;
+}
+#msg_info_panel .info_data {
+	white-space: pre-line;
+}
+#msg_info_panel .close_btn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px;
+	cursor: pointer;
+}
+
 .info_panel_fade-enter-active { /* duration in */
-	transition: all .2s;
+	transition: all .2s ease-out;
 }
 .info_panel_fade-leave-active { /* duration out */
-	transition: all .4s;
+	transition: all .4s ease-in;
 }
 .info_panel_fade-enter,     /* transition in starting time */
 .info_panel_fade-leave-to { /* transition out ending time */
-	transform: translateX(1000px);
+	transform: translateX(100%);
 }
-.close_btn {
-	padding: 10px;
-	cursor: pointer;
-	border: 1px dashed green;
-
-}
-
-
-
-
-
-
 
 
 /****************************************************************
@@ -395,6 +403,12 @@ a:hover {
 .flex-col-cv {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+}
+.flex-col-cc {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 }
 .flex-grow-0 {
