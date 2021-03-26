@@ -163,10 +163,12 @@
 					<div class="input_container flex-row-cv">
 						<i class="far fa-smile"></i>
 						<div class="input_text_field flex-grow-1">
-							<input type="text" placeholder="Scrivi un messaggio" 
+							<textarea placeholder="Scrivi un messaggio" rows="1"
 									v-model="msgInput" 
-									@keyup.enter="addSentMsg" 
+									@keyup.enter.exact="addSentMsg"
+									@keyup.enter.shift.exact="addLineToMsg"
 									ref="msgInputField">
+							</textarea>
 						</div>
 						<i class="fas fa-microphone" v-if="msgInput==''"></i>
 						<i class="fab fa-telegram-plane" @click="addSentMsg" v-else></i>

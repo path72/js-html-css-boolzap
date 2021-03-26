@@ -213,14 +213,18 @@ a:hover {
 	cursor: pointer;
 	/* border: 1px dashed green; */
 }
-.right_side .input_container .input_text_field input {
+.right_side .input_container .input_text_field textarea {
 	width: 100%;
 	padding: 13px;
 	border: none;
 	outline: none;
 	border-radius: 3px;
+	overflow: hidden;
+	resize: none;
+	line-height: 0.6em;
+	font-family: 'Roboto', sans-serif;
 }
-.right_side .input_container .input_text_field input::placeholder {
+.right_side .input_container .input_text_field textarea::placeholder {
 	font-size: 0.9em;  
 }
 .fa-telegram-plane {
@@ -266,6 +270,8 @@ a:hover {
 }
 .msg_row .msg .msg_text {
 	max-width: 220px;
+	white-space: pre-wrap;
+	line-height: 0.7em;
 }
 .msg_row .msg .msg_date {
 	text-align: right;

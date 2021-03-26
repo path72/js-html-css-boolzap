@@ -7,7 +7,7 @@ var app = new Vue(
 		el: '#root',
 		data: {
 			//* PERSON INFOS *//
-			pathToImg: 'img/',
+			// pathToImg: 'img/',
 			user: {
 				name: 'Dovahkiin',
 				avatar: '_io',
@@ -188,9 +188,9 @@ var app = new Vue(
 		},
 		methods: {
 			//* PERSON INFOS *//
-			imageSrc(contact) {
-				return this.pathToImg+'avatar'+contact.avatar+'.jpg';
-			},
+			// imageSrc(contact) {
+			// 	return this.pathToImg+'avatar'+contact.avatar+'.jpg';
+			// },
 			//* CHAT DISPLAY *//
 			chatBtn(index) {
 				this.contactSelectedIndex = index;
@@ -252,7 +252,6 @@ var app = new Vue(
 				this.contacts[this.contactSelectedIndex].messages.push(msg);
 				this.scrollToLastMsg();
 				this.inputMsgFocus();
-
 			},
 			contactAutoReplay() {
 				this.isWriting = true;
@@ -260,6 +259,10 @@ var app = new Vue(
 					this.isWriting = false;
 					this.addReceivedMsg();
 				},this.replyDelay);
+			},
+			addLineToMsg() {
+				console.log('addLineToMsg');
+				this.msgInput = `${this.msgInput}\n`;
 			},
 			//* EDIT MESSAGES *//
 			msgEditPanelLeave() {
@@ -343,21 +346,3 @@ var app = new Vue(
 	}
 );
 // Vue.config.devtools = true;
-
-
-//###################################################### 
-//# DYNAMICS - jQuery                                  # 
-//###################################################### 
-
-// $(function() {
-// // ********************* doc ready start ***
-
-
-// // *********************** doc ready end ***
-// });
-
-//###################################################### 
-//# FUNCTIONS                                          # 
-//###################################################### 
-
-
