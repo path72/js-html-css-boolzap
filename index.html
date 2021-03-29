@@ -10,8 +10,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 		<!-- *** [ MY CSS ] *** -->
 		<link rel="stylesheet" href="css/master.css">
-		<!-- *** [ JQUERY - Google CDN ] *** -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<!-- *** [ VUE.JS ] *** -->
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 		<!-- *** [ Day.js ] ***  -->
@@ -33,15 +31,6 @@
 
 					<!-- ** left header ** -->
 					<div class="left_header flex-row">
-						<!-- ---------------------------------------- template -->
-						<!-- <div class="component flex-row">
-							<div class="avatar_img">
-								<img :src="imageSrc(user)" alt="">
-							</div>
-							<div class="avatar_name flex-row-cv">
-								<div class="txt_1">{{user.name}}</div>
-							</div>
-						</div> -->
 						<!-- --------------------------------------- component -->
 						<person-display :person="user"></person-display>
 						<!-- ------------------------------------------------- -->
@@ -70,7 +59,7 @@
 						</label>
 						<input id="search" type="text" placeholder="Cerca o inizia una nuova chat"
 								v-model="srcInput"
-								@keyup="srcChat(srcInput)">
+								@keyup="srcChat">
 					</div>
 
 					<!-- ** chat list contanier ** -->
@@ -80,15 +69,6 @@
 								:class="(index == contactSelectedIndex)?'selected':null" 
 								@click="chatBtn(index)"
 								v-if="contact.visible">
-							<!-- ---------------------------------------- template -->
-							<!-- <div class="component flex-row">
-								<div class="avatar_img">
-									<img :src="imageSrc(contact)" alt="">
-								</div>
-								<div class="avatar_name flex-row-cv">
-									<div class="txt_1">{{contact.name}}</div>
-								</div>
-							</div> -->
 							<!-- --------------------------------------- component -->
 							<person-display :person="contact"></person-display>
 							<!-- ------------------------------------------------- -->
@@ -106,16 +86,6 @@
 
 					<!-- ** right header ** -->
 					<div class="right_header flex-row">
-						<!-- ---------------------------------------- template -->
-						<!-- <div class="component flex-row">
-							<div class="avatar_img">
-								<img :src="imageSrc(contacts[contactSelectedIndex])" alt="">
-							</div>
-							<div class="avatar_name flex-col-cv">
-								<div class="txt_1">{{contacts[contactSelectedIndex].name}}</div>
-								<div class="txt_2">{{selectedContactUpdate}}</div>
-							</div>
-						</div> -->
 						<!-- --------------------------------------- component -->
 						<person-display
 								:person="contacts[contactSelectedIndex]" 
@@ -133,7 +103,7 @@
 					<div class="chat_container flex-grow-1">
 						<div class="chat_msg_list flex-col-co">
 							<div class="msg_row flex-col" v-for="(message,index) in contacts[contactSelectedIndex].messages">
-								<div class="msg" :id="'msg'+index"
+								<div class="msg"
 										:class="message.status"
 										@mouseover="msgOverIndex = index"
 										@mouseleave="msgOverIndex = -1">

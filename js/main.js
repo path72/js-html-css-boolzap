@@ -225,9 +225,9 @@ var app = new Vue(
 					msgList[msgList.length-1].scrollIntoView();
 				});
 			},
-			srcChat(srcInput) {
+			srcChat() {
 				this.contacts.forEach((co)=>{
-					if (!co.name.toLowerCase().includes(srcInput.toLowerCase()))
+					if (!co.name.toLowerCase().includes(this.srcInput.toLowerCase()))
 						co.visible = false;
 					else
 						co.visible = true;
@@ -281,14 +281,10 @@ var app = new Vue(
 				this.contacts[this.contactSelectedIndex].messages.splice(index,1);
 			},
 			getMsgSender(message) {
-				// this.$nextTick(() => {
-					if (message.status.includes('received'))
-						return this.contacts[this.contactSelectedIndex];
-						// this.msgInfoPanelSender = this.contacts[this.contactSelectedIndex];
-					else
-						return this.user;
-						// this.msgInfoPanelSender = this.user;
-				// });	
+				if (message.status.includes('received'))
+					return this.contacts[this.contactSelectedIndex];
+				else
+					return this.user;
 			},
 			//* MESSAGE INFO PANEL *//
 			msgInfoPanelEnter(message) {
